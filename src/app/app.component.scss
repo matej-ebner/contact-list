@@ -1,0 +1,44 @@
+@import "../../src/scss/variables.scss";
+
+#menu {
+  background-image: linear-gradient(
+    182.65deg,
+    #78c9ce 0%,
+    #2496a2 99.98%,
+    #2496a2 100%
+  );
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  height: 60px;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  .rectangle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0.3;
+    height: 7px;
+  }
+}
+
+#content {
+  margin: 0px auto;
+  max-width: 1440px;
+  padding: 0 0.5em;
+
+  @media (min-width: $sm) {
+    padding: 0 2em;
+  }
+
+  @media (min-width: $sm) {
+    padding: 0 2em;
+  }
+
+  @media (min-width: 1440) {
+    padding: none;
+  }
+}

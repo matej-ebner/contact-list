@@ -1,0 +1,41 @@
+<ng-container *ngIf="isDataAvailable">
+  <div id="contact-type-wrapper">
+    <p [ngClass]="{ selected: allContacts }" (click)="switchContactType(true)">
+      All contacts
+    </p>
+    <span>|</span>
+    <p
+      [ngClass]="{ selected: !allContacts }"
+      (click)="switchContactType(false)"
+    >
+      My favorites
+    </p>
+  </div>
+
+  <div id="search-wrapper">
+    <input type="text" />
+  </div>
+
+  <div id="contacts-wrapper">
+    <div id="add-contact">
+      <div>
+        <img src="../../../assets/images/icons/add.svg" />
+        <p>Add new</p>
+      </div>
+    </div>
+
+    <div class="contact" *ngFor="let contact of contacts">
+      <div class="icons-wrapper">
+        <img
+          src="../../../assets/images/icons/heart_empty.svg"
+          (click)="markAsFavorite(contact.id)"
+        />
+        <img src="../../../assets/images/icons/edit.svg" />
+        <img src="../../../assets/images/icons/delete.svg" />
+      </div>
+
+      <img class="avatar" />
+      <p>{{ contact.name }}</p>
+    </div>
+  </div>
+</ng-container>
