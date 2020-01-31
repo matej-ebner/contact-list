@@ -23,7 +23,6 @@ export class ContactsListComponent implements OnInit {
   constructor(
     private generalService: GeneralService,
     private appApiService: AppApiService,
-    private errorService: ErrorService,
     private appDataService: AppDataService
   ) {}
 
@@ -38,16 +37,15 @@ export class ContactsListComponent implements OnInit {
       .subscribe(
         (response: any[]) => {
           this.allContacts = true;
-          this.appDataService.setContacts(response["allContacts"], true);
-          this.appDataService.setContacts(response["favoriteContacts"]);
+          this.appDataService.setContacts(response);
 
           this.contacts = this.appDataService.allContacts;
           this.isDataAvailable = true;
           this.generalService.hideSpinner();
         },
         error => {
+
           this.generalService.hideSpinner();
-          this.errorService.showError();
         }
       );
     this.subscriptions.push(getContactsSubscription);
@@ -60,9 +58,10 @@ export class ContactsListComponent implements OnInit {
       : this.appDataService.favoriteContacts;
   }
 
-  markAsFavorite(contactId: number): void {
+  markAsFavorite(contactId: number, asFavorite: boolean): void {
     const formData = {
-      id: contactId
+      id: contactId,
+      setAsFavorite: asFavorite
     };
 
     this.generalService.showSpinner();
@@ -70,8 +69,7 @@ export class ContactsListComponent implements OnInit {
       .setAsFavoriteRequest(formData)
       .subscribe(
         (response: any[]) => {
-          this.appDataService.setContacts(response["allContacts"], true);
-          this.appDataService.setContacts(response["favoriteContacts"]);
+          this.appDataService.setContacts(response);
 
           this.contacts = this.allContacts
             ? this.appDataService.allContacts
@@ -82,7 +80,6 @@ export class ContactsListComponent implements OnInit {
         },
         error => {
           this.generalService.hideSpinner();
-          this.errorService.showError();
         }
       );
     this.subscriptions.push(setAsFavoriteSubscription);
