@@ -36,10 +36,6 @@ export class ContactsListComponent implements OnInit {
       .getContactsRequest()
       .subscribe(
         (response: any[]) => {
-
-
-
-
           this.allContacts = true;
           this.appDataService.setContacts(response);
 

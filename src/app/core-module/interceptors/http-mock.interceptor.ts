@@ -45,22 +45,20 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const url = requestsUrls.find(url => request.url.includes(url.url));
 
-    // for (const requestUrl of requestsUrls) {
-    //   if (request.url.includes(requestUrl.url)) {
-    //     switch (url.action) {
-    //       case "getContacts":
-    //         return this.getContacts();
-    //       case "getContact":
-    //         return this.getContact(request);
-    //       case "setAsFavorite":
-    //         return this.setAsFavorite(request);
-    //       default:
-    //         return of(new HttpResponse({ status: 500, body: "Server error" }));
-    //     }
-    //   }
-    // }
-
-    return of(new HttpResponse({ status: 500, body: "Server error" }));
+    for (const requestUrl of requestsUrls) {
+      if (request.url.includes(requestUrl.url)) {
+        switch (url.action) {
+          case "getContacts":
+            return this.getContacts();
+          case "getContact":
+            return this.getContact(request);
+          case "setAsFavorite":
+            return this.setAsFavorite(request);
+          default:
+            return of(new HttpResponse({ status: 500, body: "Server error" }));
+        }
+      }
+    }
   }
 
   private getContacts(contactsArray?: Contact[]) {
@@ -88,8 +86,8 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     if (contact) {
       return of(new HttpResponse({ status: 200, body: contact }));
     } else {
-      return of(new HttpResponse({ status: 404, body: 'Contact not found' }));
-    }  
+      return of(new HttpResponse({ status: 404, body: "Contact not found" }));
+    }
   }
 
   private setAsFavorite(request: HttpRequest<any>) {

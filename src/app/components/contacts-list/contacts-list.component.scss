@@ -183,7 +183,7 @@
 
     a {
       text-decoration: none;
-      display: grid;
+      display: inherit;
       justify-content: center;
 
       @media (max-width: $sm) {

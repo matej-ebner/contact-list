@@ -4,48 +4,146 @@
     "name": "Addie Hernandez",
     "favorite": true,
     "headerImage": "../../../assets/images/people/girl.jpg",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 2,
     "name": "Oscar Arnold",
     "favorite": false,
     "headerImage": "../../../assets/images/people/cool_guy.png",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 3,
     "name": "Isaiah McGuire",
     "favorite": false,
     "headerImage": "../../../assets/images/people/bald.jpg",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 4,
     "name": "Ann Schneider",
     "favorite": true,
     "headerImage": "../../../assets/images/people/girl_2.jpg",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 5,
     "name": "Agnes Terry",
     "favorite": true,
     "headerImage": "../../../assets/images/people/great.jpg",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 6,
     "name": "Ann Schneider",
     "favorite": true,
     "headerImage": "../../../assets/images/people/ola.png",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   },
   {
     "id": 7,
     "name": "Duane Reese",
     "favorite": true,
     "headerImage": "../../../assets/images/people/old.jpg",
-    "email": "ole-ole@gmail.com"
+    "email": "ole-ole@gmail.com",
+    "phone": [
+      {
+        "number": "098/555-555",
+        "type": "home"
+      },
+      {
+        "number": "098/555-111",
+        "type": "work"
+      },
+      {
+        "number": "098/555-222",
+        "type": "cell"
+      }
+    ]
   }
 ]

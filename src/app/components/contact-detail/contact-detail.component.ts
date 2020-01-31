@@ -38,10 +38,6 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
       .getContactRequest(contactId)
       .subscribe(
         (response: Contact) => {
-
-console.log(response);
-
-
           this.contact = response;
           this.isDataAvailable = true;
           this.generalService.hideSpinner();

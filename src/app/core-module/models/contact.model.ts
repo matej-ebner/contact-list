@@ -4,4 +4,10 @@ export interface Contact {
   favorite: boolean;
   headerImage: string;
   email: string;
+  phone: Phone[];
+}
+
+interface Phone {
+  number: string;
+  type: string;
 }

@@ -27,14 +27,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           console.log(error);
         }
 
-        // if (error.status != 404) {
-         
-          
+        if (error.status != 404) {
           this.errorService.showError();
-        // } 
-
-        console.log('e pa eto');
-        console.log(error.status);
+        }
 
         return throwError(error);
       })

@@ -16,7 +16,7 @@ export class AppApiService {
   }
 
   getContactRequest(contactId: number): Observable<any> {
-    const url = this.baseApiUrl + "contact-detail/" + contactId;
+    const url = this.baseApiUrl + "contact-detail/?id=" + contactId;
     return this.httpClient.get(url);
   }
 
