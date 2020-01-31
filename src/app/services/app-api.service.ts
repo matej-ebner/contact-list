@@ -15,9 +15,14 @@ export class AppApiService {
     return this.httpClient.get(url);
   }
 
-  setAsFavoriteRequest(formData):Observable<any>{
+  getContactRequest(contactId: number): Observable<any> {
+    const url = this.baseApiUrl + "contact-detail/" + contactId;
+    return this.httpClient.get(url);
+  }
+
+  setAsFavoriteRequest(formData): Observable<any> {
     const url = this.baseApiUrl + "set-as-favorite";
-    return this.httpClient.patch(url,JSON.stringify(formData));
+    return this.httpClient.patch(url, JSON.stringify(formData));
   }
 
   // newContactRequest(formData):Observable<any>{

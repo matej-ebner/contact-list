@@ -8,17 +8,14 @@ export class AppDataService {
 
   constructor() {}
 
-  setContacts(contacts: Contact[], all?: boolean): void {
-    if (all) {
-      this.allContacts = this.sortContactsAlphabetically(contacts);
-      localStorage.setItem("allContacts", JSON.stringify(this.allContacts));
-    } else {
-      this.favoriteContacts = this.sortContactsAlphabetically(contacts);
-      localStorage.setItem(
-        "favoriteContacts",
-        JSON.stringify(this.favoriteContacts)
-      );
-    }
+  setContacts(contactsArray: Contact[]): void {
+    this.allContacts = this.sortContactsAlphabetically(contactsArray);
+    localStorage.setItem("contacts", JSON.stringify(this.allContacts));
+
+    const favoriteContacts = contactsArray.filter(contact => {
+      return contact.favorite === true;
+    });
+    this.favoriteContacts = this.sortContactsAlphabetically(favoriteContacts);
   }
 
   sortContactsAlphabetically(entities: Contact[]): Contact[] {
