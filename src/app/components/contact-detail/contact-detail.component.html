@@ -7,11 +7,13 @@
       </a>
 
       <img
+        class="heart"
         *ngIf="!contact.favorite"
         src="../../../assets/images/icons/heart_empty.svg"
       />
 
       <img
+        class="heart"
         *ngIf="contact.favorite"
         src="../../../assets/images/icons/heart_full.svg"
       />
@@ -76,16 +78,18 @@
         </p>
 
         <img
+          class="heart"
           *ngIf="!contact.favorite"
           src="../../../assets/images/icons/heart_empty.svg"
         />
 
         <img
+          class="heart"
           *ngIf="contact.favorite"
           src="../../../assets/images/icons/heart_full.svg"
         />
 
-        <a [routerLink]="['/edit/' + contact.id]">
+        <a class="edit" [routerLink]="['/edit/' + contact.id]">
           <img src="../../../assets/images/icons/edit.svg" />
         </a>
       </div>

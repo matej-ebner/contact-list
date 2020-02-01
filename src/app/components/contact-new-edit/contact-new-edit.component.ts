@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { GeneralService } from "src/app/core-module/services/general.service";
+import { AppApiService } from "src/app/services/app-api.service";
 
 import { Contact, PhoneNumber } from "src/app/core-module/models/contact.model";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-contact-new-edit",
@@ -14,8 +17,8 @@ import { Contact, PhoneNumber } from "src/app/core-module/models/contact.model";
   ]
 })
 export class ContactNewEditComponent implements OnInit {
-  newContact: boolean;
   contact: Contact;
+  contactNotFound: boolean;
   contactForm: FormGroup;
   invalidForm: boolean;
   headerImageMissing: boolean;
@@ -23,21 +26,58 @@ export class ContactNewEditComponent implements OnInit {
   @ViewChild("headerImageInput", { static: true }) headerImageInput;
   headerImageLocalPath: string;
 
-  constructor(private generalService: GeneralService) {}
+  subscriptions: Subscription[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private generalService: GeneralService,
+    private appApiService: AppApiService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.newContact = true;
-    this.initForm();
+    if (this.router.url.indexOf("new") > -1) {
+      this.initForm();
+    } else {
+      const contactId = +this.route.snapshot.paramMap.get("id");
+      this.getContact(contactId);
+    }
+  }
+
+  getContact(contactId: number) {
+    this.generalService.showSpinner();
+    const getContactSubscription = this.appApiService
+      .getContactRequest(contactId)
+      .subscribe(
+        (response: Contact) => {
+          this.contact = response;
+          this.initForm();
+          this.generalService.hideSpinner();
+        },
+        error => {
+          if (error.status === 404) {
+            this.contactNotFound = true;
+            setTimeout(() => {
+              this.router.navigate(["/"]);
+            }, 1000);
+          }
+
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(getContactSubscription);
   }
 
   private initForm(): void {
     let name: string;
-    let email: string;
-    
-    // this.headerImageLocalPath = this.contact.headerImage;
-    // const name = this.contact.name;
-    // const email = this.contact.email;
-    // const phone = this.contact.phone;
+    // let email: string;
+    let email = 'm@m.com';
+
+    if (this.contact) {
+      this.headerImageLocalPath = this.contact.headerImage;
+      name = this.contact.name;
+      email = this.contact.email;
+    }
 
     this.contactForm = new FormGroup({
       name: new FormControl(name, [
@@ -46,12 +86,13 @@ export class ContactNewEditComponent implements OnInit {
       ]),
       email: new FormControl(email, [
         Validators.required,
-        this.generalService.noEmptySpaceValidator
+        this.generalService.noEmptySpaceValidator,
+        Validators.pattern(this.generalService.emailValidationPattern)
       ]),
       phoneArray: new FormArray([])
     });
 
-    if (!this.newContact) {
+    if (this.contact) {
       const phoneFormArray = this.getPhoneFormArray();
       this.contact.phone.forEach((phone: PhoneNumber) => {
         phoneFormArray.push(
@@ -80,6 +121,7 @@ export class ContactNewEditComponent implements OnInit {
   }
 
   addNumber(): void {
+    this.invalidForm = false;
     const phoneFormArray = this.getPhoneFormArray();
 
     phoneFormArray.push(
@@ -100,16 +142,73 @@ export class ContactNewEditComponent implements OnInit {
     phoneFormArray.removeAt(formGroupIndex);
   }
 
-  submit() {
-    if (this.contactForm.valid) {
+  submit(): void {
+    if (this.contactForm.valid && this.headerImageLocalPath) {
       this.headerImageMissing = this.invalidForm = false;
+
+      const formData = this.contactForm.value;
+      if (this.contact) {
+        formData["id"] = this.contact.id;
+        this.editContact(formData);
+      } else {
+        // adding some default images since there is no API to store image
+        formData["headerImage"] = "../../../assets/images/people/girl.jpg";
+        this.saveNewContact(formData);
+      }
     } else {
       this.invalidForm = true;
       this.headerImageMissing = !this.headerImageLocalPath;
-
-      const formValues = this.contactForm.value;
-
-      // console.log(formValues);
     }
+  }
+
+  editContact(formData: FormData): void {
+    this.generalService.showSpinner();
+    const getContactSubscription = this.appApiService
+      .editContactRequest(formData)
+      .subscribe(
+        (response: Contact) => {
+          this.redirectAfterSubmit();
+        },
+        error => {
+          if (error.status === 404) {
+            this.contactNotFound = true;
+            setTimeout(() => {
+              this.router.navigate(["/"]);
+            }, 1000);
+          }
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(getContactSubscription);
+  }
+
+  saveNewContact(formData: FormData): void {
+    this.generalService.showSpinner();
+    const getContactSubscription = this.appApiService
+      .newContactRequest(formData)
+      .subscribe(
+        (response: Contact) => {
+          this.redirectAfterSubmit();  
+        },
+        error => {
+          if (error.status === 404) {
+            this.contactNotFound = true;
+            setTimeout(() => {
+              this.router.navigate(["/"]);
+            }, 1000);
+          }
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(getContactSubscription);
+  }
+
+  private redirectAfterSubmit() {
+    this.generalService.hideSpinner();
+    this.router.navigate(["/"]);
+  }
+
+  ngOnDestroy(): void {
+    this.generalService.unsubscribeFromSubscriptions(this.subscriptions);
   }
 }

@@ -10,6 +10,16 @@ export class AppApiService {
 
   constructor(private httpClient: HttpClient) {}
 
+  newContactRequest(formData): Observable<any> {
+    const url = this.baseApiUrl + "new-contact";
+    return this.httpClient.post(url, JSON.stringify(formData));
+  }
+
+  editContactRequest(formData): Observable<any> {
+    const url = this.baseApiUrl + "edit-contact";
+    return this.httpClient.patch(url, JSON.stringify(formData));
+  }
+
   getContactsRequest(): Observable<any> {
     const url = this.baseApiUrl + "contacts";
     return this.httpClient.get(url);
@@ -24,15 +34,4 @@ export class AppApiService {
     const url = this.baseApiUrl + "set-as-favorite";
     return this.httpClient.patch(url, JSON.stringify(formData));
   }
-
-  // newContactRequest(formData):Observable<any>{
-  //   const url = this.baseApiUrl + "new-contact";
-  //   return this.httpClient.post(url,JSON.stringify(formData));
-  // }
-
-  // getEntityDetailsRequest(entityType: number, id: number): Observable<any> {
-  //   const url =
-  //     this.baseApiUrl + "/details.php?entityType=" + entityType + "&ID=" + id;
-  //   return this.httpClient.get(url);
-  // }
 }

@@ -12,6 +12,14 @@
   }
 }
 
+#big-wrapper {
+  @media (min-width: $sm) {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-content: center;
+  }
+}
+
 .image-wrapper {
   position: relative;
   height: 150px;
@@ -33,6 +41,11 @@
     box-sizing: border-box;
     width: 150px;
     height: 150px;
+
+    @media (min-width: $md) {
+      width: 180px;
+      height: 180px;
+    }
   }
 
   input {
@@ -80,21 +93,19 @@
     opacity: 0.4;
     padding-left: 30px;
     margin-right: 1em;
+    box-sizing: border-box;
 
-    .invalid-form &.ng-invalid,
-    &.ng-invalid.ng-dirty {
+    .invalid-form &.ng-invalid {
       background: rgba($red, 0.05);
       box-shadow: inset 0 0 0 2px $red;
-    }
-    .invalid-form &.ng-invalid::selection,
-    &.ng-invalid.ng-dirty::selection {
-      background: $red;
-      color: $white;
     }
   }
 
   .single-input {
-    width: 300px;
+    width: 100%;
+    @media (min-width: $md) {
+      width: 325px;
+    }
     height: 60px;
   }
 
@@ -102,7 +113,10 @@
     div {
       display: inline-block;
       input[type="text"] {
-        width: 240px;
+        width: 200px;
+        @media (min-width: $xs) {
+          width: 240px;
+        }
         height: 60px;
 
         @media (max-width: 1360px) {
@@ -125,11 +139,17 @@
 
 #data-wrapper {
   grid-column: 2/7;
-  padding: 0 2em;
+  padding: 0 25px;
   display: inherit;
-  grid-template-rows: repeat(2, 1fr);
   grid-template-rows: 90px auto;
-  
+
+  @media (max-width: $md) {
+    .form-input-wrapper:nth-child(2) {
+      border-top: 1px solid $green_2;
+      margin-top: 1em;
+    }
+  }
+
   .form-input-wrapper:not(:nth-child(4)) {
     border-bottom: 1px solid $green_2;
   }
@@ -137,12 +157,15 @@
 
 #form-buttons {
   margin-top: 2em;
-  display: inherit;
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
 
   button {
     border-radius: 28.5px;
-    width: 160px;
+    width: 130px;
+    @media (min-width: $xs) {
+      width: 160px;
+    }
     height: 42px;
     border: none;
     color: $white;

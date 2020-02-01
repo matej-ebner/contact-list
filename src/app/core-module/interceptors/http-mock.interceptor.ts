@@ -13,6 +13,14 @@ import { Contact } from "../models/contact.model.js";
 
 const requestsUrls = [
   {
+    url: environment.apiUrl + "new-contact",
+    action: "newContact"
+  },
+  {
+    url: environment.apiUrl + "edit-contact",
+    action: "editContact"
+  },
+  {
     url: environment.apiUrl + "contacts",
     action: "getContacts"
   },
@@ -48,6 +56,10 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     for (const requestUrl of requestsUrls) {
       if (request.url.includes(requestUrl.url)) {
         switch (url.action) {
+          case "newContact":
+            return this.newContact(request);
+          case "editContact":
+            return this.editContact(request);
           case "getContacts":
             return this.getContacts();
           case "getContact":
@@ -59,6 +71,47 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         }
       }
     }
+  }
+
+  private newContact(request: HttpRequest<any>) {
+    const contactsFromLocalStorage = this.getContactsFromLocalStorage();
+
+    let newContact: Contact = {
+      id: undefined,
+      name: undefined,
+      headerImage: undefined,
+      favorite: false,
+      email: undefined,
+      phone: []
+    };
+
+    newContact = this.newEditContactSetData(request, newContact);
+
+    let maxId = 0;
+    contactsFromLocalStorage.map(function(contact: Contact) {
+      if (contact.id > maxId) maxId = contact.id;
+    });
+
+    newContact.id = maxId + 1;
+    contactsFromLocalStorage.push(newContact);
+    localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
+    return of(new HttpResponse({ status: 200 }));
+  }
+
+  private editContact(request: HttpRequest<any>) {
+    const contactIdParam = this.getParamFromBody(request, "id");
+    const contactsFromLocalStorage = this.getContactsFromLocalStorage();
+
+    let updateContact = contactsFromLocalStorage.find(
+      contact => contact.id == contactIdParam
+    );
+    const indexOfContact = contactsFromLocalStorage.indexOf(updateContact);
+
+    updateContact = this.newEditContactSetData(request, updateContact);
+    contactsFromLocalStorage[indexOfContact] = updateContact;
+
+    localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
+    return of(new HttpResponse({ status: 200 }));
   }
 
   private getContacts(contactsArray?: Contact[]) {
@@ -91,9 +144,8 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
   }
 
   private setAsFavorite(request: HttpRequest<any>) {
-    const body = JSON.parse(request.body);
-    const contactIdParam = body["id"];
-    const setAsFavoriteParam = body["setAsFavorite"];
+    const contactIdParam = this.getParamFromBody(request, "id");
+    const setAsFavoriteParam = this.getParamFromBody(request, "setAsFavorite");
 
     const contactsFromLocalStorage = this.getContactsFromLocalStorage();
 
@@ -108,7 +160,32 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     return this.getContacts(contactsFromLocalStorage);
   }
 
+  // helper functions
   private getContactsFromLocalStorage() {
     return JSON.parse(localStorage.getItem("contacts"));
+  }
+
+  private getParamFromBody(request: HttpRequest<any>, param: string) {
+    const body = JSON.parse(request.body);
+    return body[param];
+  }
+
+  private newEditContactSetData(
+    request: HttpRequest<any>,
+    contact: Contact
+  ): Contact {
+    contact.name = this.getParamFromBody(request, "name");
+    contact.email = this.getParamFromBody(request, "email");
+    contact.headerImage = this.getParamFromBody(request, "headerImage");
+    contact.phone = [];
+    this.getParamFromBody(request, "phoneArray").forEach(phone => {
+      const phoneData = {
+        number: phone.number,
+        type: phone.type
+      };
+      contact.phone.push(phoneData);
+    });
+
+    return contact;
   }
 }

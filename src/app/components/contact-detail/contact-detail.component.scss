@@ -41,19 +41,18 @@
   }
 }
 
-section,form {
+section,
+form {
   width: 100%;
-
   @media (min-width: $md) {
     width: 90%;
   }
 
   @media (min-width: $lg) {
-    width: 70%;
+    width: 860px;
   }
 
   margin: 0px auto;
-
   padding-top: 2em;
 }
 
@@ -65,6 +64,10 @@ section,form {
 }
 
 #sm-icons-wrapper {
+  @media (min-width: $sm) {
+    display: none;
+  }
+
   border-bottom: 1px solid $grey_3;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -75,11 +78,12 @@ section,form {
     grid-column: 1/1;
   }
 
-  :nth-child(2) {
+  .heart {
     grid-column: 7/8;
   }
 
-  :nth-child(3) {
+  a,
+  .delete-contact {
     grid-column: 8/9;
   }
 }
@@ -161,6 +165,10 @@ section,form {
 }
 
 #name-icons-wrapper {
+  @media (max-width: $sm) {
+    display: none;
+  }
+
   grid-row: 1/1;
   border-bottom: 1px solid #2da1ad;
   display: inherit;
@@ -176,7 +184,7 @@ section,form {
     }
   }
 
-  :nth-child(2) {
+  p {
     grid-column: 2/9;
     justify-self: left;
     color: $grey_3;
@@ -185,8 +193,17 @@ section,form {
     line-height: 34px;
   }
 
-  :nth-child(3),
-  :nth-child(4) {
+  .heart {
+    grid-column: 9/10;
+  }
+  .edit,
+  .delete-contact {
+    grid-column: 10/11;
+  }
+
+  .heart,
+  .edit,
+  .delete-contact {
     justify-self: right;
   }
 }

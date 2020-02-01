@@ -1,69 +1,59 @@
-<ng-template #headerImageWrapperTemplate>
-  <div class="image-wrapper">
-    <input
-      type="file"
-      (change)="previewHeaderImage($event)"
-      accept="image/x-png,image/gif,image/jpeg"
-      #headerImageInput
-    />
-
-    <img
-      *ngIf="!headerImageLocalPath"
-      id="header-image"
-      class="header-image-placeholder"
-      [ngClass]="{ 'header-image-missing': headerImageMissing }"
-    />
-
-    <img
-      class="upload-delete-header-image"
-      *ngIf="!headerImageLocalPath"
-      (click)="headerImageInput.click()"
-      src="../../../assets/images/icons/upload.svg"
-    />
-
-    <img
-      *ngIf="headerImageLocalPath"
-      id="header-image"
-      [src]="headerImageLocalPath"
-    />
-
-    <img
-      class="upload-delete-header-image"
-      *ngIf="headerImageLocalPath"
-      (click)="headerImageInput.value = ''; headerImageLocalPath = null"
-      src="../../../assets/images/icons/remove.svg"
-    />
-
-    <p *ngIf="">Mandatory</p>
-  </div>
-</ng-template>
-
 <form
   [formGroup]="contactForm"
   #f="ngForm"
   [ngClass]="{ 'invalid-form': invalidForm }"
 >
-  <!-- SM begining -->
-  <div id="sm">
+  <div id="big-wrapper">
     <div id="sm-icons-wrapper">
       <a [routerLink]="['/']">
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
+
+      <img class="delete-contact" *ngIf="contact" src="../../../assets/images/icons/delete.svg" />
     </div>
 
-    <ng-container *ngTemplateOutlet="headerImageWrapperTemplate"></ng-container>
-  </div>
-  <!-- SM end -->
+    <div class="image-wrapper">
+      <input
+        type="file"
+        (change)="previewHeaderImage($event)"
+        accept="image/x-png,image/gif,image/jpeg"
+        #headerImageInput
+      />
 
-  <!-- LG begining -->
-  <div id="lg">
-    <ng-container *ngTemplateOutlet="headerImageWrapperTemplate"></ng-container>
+      <img
+        *ngIf="!headerImageLocalPath"
+        id="header-image"
+        class="header-image-placeholder"
+        [ngClass]="{ 'header-image-missing': headerImageMissing }"
+      />
+
+      <img
+        class="upload-delete-header-image"
+        *ngIf="!headerImageLocalPath"
+        (click)="headerImageInput.click()"
+        src="../../../assets/images/icons/upload.svg"
+      />
+
+      <img
+        *ngIf="headerImageLocalPath"
+        id="header-image"
+        [src]="headerImageLocalPath"
+      />
+
+      <img
+        class="upload-delete-header-image"
+        *ngIf="headerImageLocalPath"
+        (click)="headerImageInput.value = ''; headerImageLocalPath = null"
+        src="../../../assets/images/icons/remove.svg"
+      />
+    </div>
 
     <div id="data-wrapper">
       <div id="name-icons-wrapper">
         <a [routerLink]="['/']">
           <img src="../../../assets/images/icons/arrow_back.svg" />
         </a>
+        <img class="delete-contact" *ngIf="contact" src="../../../assets/images/icons/delete.svg" />
       </div>
 
       <div class="form-input-wrapper">
@@ -136,5 +126,4 @@
       </div>
     </div>
   </div>
-  <!-- LG end -->
 </form>
