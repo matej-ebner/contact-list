@@ -1,41 +1,119 @@
 <section>
-  <img id="header-image" [src]="contact.headerImage" />
-
-  <div id="data-wrapper">
-    <div id="name-icons-wrapper">
-      <a id="back" [routerLink]="['/']">
+  <div id="sm">
+    <div id="sm-icons-wrapper">
+      <a [routerLink]="['/']">
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
-      <p>
-        {{ contact.name }}
-      </p>
+
       <img
-        class="icons"
         *ngIf="!contact.favorite"
         src="../../../assets/images/icons/heart_empty.svg"
       />
+
       <img
-        class="icons"
         *ngIf="contact.favorite"
         src="../../../assets/images/icons/heart_full.svg"
       />
 
-      <img
-        class="icons"
-        *ngIf="contact.favorite"
-        src="../../../assets/images/icons/edit.svg"
-      />
+      <a [routerLink]="['/edit/' + contact.id]">
+        <img src="../../../assets/images/icons/edit.svg" />
+      </a>
     </div>
 
-    <div id="email-numbers-wrapper">
-      <p>
-        <span> <img src="../../../assets/images/icons/email.svg"/></span>
-        email
-      </p>
+    <div id="sm-data-wrapper">
+      <div id="sm-header-image-name">
+        <img id="header-image" [src]="contact.headerImage" />
 
-      <a href="mailto:{{ contact.email }}">
-        {{ contact.email }}
-      </a>
+        <p>
+          {{ contact.name }}
+        </p>
+      </div>
+
+      <div id="sm-email-numbers-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/email.svg"/></span>
+          email
+        </p>
+
+        <a id="email" href="mailto:{{ contact.email }}">
+          {{ contact.email }}
+        </a>
+      </div>
+
+      <div id="sm-email-numbers-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/phone.svg"/></span>
+          numbers
+        </p>
+
+        <div id="sm-numbers-wrapper">
+          <div *ngFor="let phone of contact.phone" class="number-wrapper">
+            <p>{{ phone.type }}</p>
+
+            <a class="number" href="tel:{{ phone.number }}">
+              {{ phone.number }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lg">
+    <img id="header-image" [src]="contact.headerImage" />
+
+    <div id="lg-data-wrapper">
+      <div id="name-icons-wrapper">
+        <a [routerLink]="['/']">
+          <img src="../../../assets/images/icons/arrow_back.svg" />
+        </a>
+
+        <p>
+          {{ contact.name }}
+        </p>
+
+        <img
+          *ngIf="!contact.favorite"
+          src="../../../assets/images/icons/heart_empty.svg"
+        />
+
+        <img
+          *ngIf="contact.favorite"
+          src="../../../assets/images/icons/heart_full.svg"
+        />
+
+        <a [routerLink]="['/edit/' + contact.id]">
+          <img src="../../../assets/images/icons/edit.svg" />
+        </a>
+      </div>
+
+      <div id="lg-email-numbers-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/email.svg"/></span>
+          email
+        </p>
+
+        <a id="email" href="mailto:{{ contact.email }}">
+          {{ contact.email }}
+        </a>
+      </div>
+
+      <div id="lg-email-numbers-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/phone.svg"/></span>
+          numbers
+        </p>
+
+        <div id="lg-numbers-wrapper">
+          <div *ngFor="let phone of contact.phone" class="number-wrapper">
+            <p>{{ phone.type }}</p>
+
+            <a class="number" href="tel:{{ phone.number }}">
+              {{ phone.number }}
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

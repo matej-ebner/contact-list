@@ -1,16 +1,14 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 * {
   padding: 0;
   margin: 0;
 }
 
-html, body {
+html,
+body {
   font-family: Lato;
-
-  @media (min-width: $xs) {
-    font-size: 14px;
-  }
+  font-size: 14px;
 
   @media (min-width: $md) {
     font-size: 18px;
