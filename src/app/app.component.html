@@ -2,11 +2,11 @@
 <app-error></app-error>
 
 <div id="menu">
-  <img src="assets/images/logo.svg" />
-  <div class="rectangle"></div>
+  <a [routerLink]="['/']">
+    <img src="assets/images/logo.svg" />
+  </a>
 </div>
 
 <div id="content">
   <router-outlet> </router-outlet>
 </div>
-

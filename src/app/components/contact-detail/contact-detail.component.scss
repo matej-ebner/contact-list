@@ -41,11 +41,11 @@
   }
 }
 
-section {
+section,form {
   width: 100%;
 
   @media (min-width: $md) {
-    width: 85%;
+    width: 90%;
   }
 
   @media (min-width: $lg) {
@@ -145,9 +145,9 @@ section {
   align-content: center;
 }
 
-#header-image {
-  grid-column: 1/2;
+#lg-header-image {
   @include header-image-mixin();
+  grid-column: 1/2;
   width: 180px;
   height: 180px;
 }
@@ -157,6 +157,7 @@ section {
   padding: 0 2em;
   display: inherit;
   grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 90px auto;
 }
 
 #name-icons-wrapper {
@@ -168,7 +169,7 @@ section {
 
   :nth-child(1) {
     grid-column: 1/1;
-    justify-self: center;
+    padding-left: 4px;
     img {
       height: 16px;
       margin-bottom: 2px;

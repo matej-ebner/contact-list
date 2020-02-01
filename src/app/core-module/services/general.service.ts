@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 
 import { environment } from "src/environments/environment";
+import { FormControl } from "@angular/forms";
 
 @Injectable()
 export class GeneralService {
@@ -27,5 +28,11 @@ export class GeneralService {
         subscription.unsubscribe();
       });
     }
+  }
+
+  noEmptySpaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || "").trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { emptySpace: true };
   }
 }

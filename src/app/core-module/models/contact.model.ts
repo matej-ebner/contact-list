@@ -4,10 +4,10 @@ export interface Contact {
   favorite: boolean;
   headerImage: string;
   email: string;
-  phone: Phone[];
+  phone: PhoneNumber[];
 }
 
-interface Phone {
+export interface PhoneNumber {
   number: string;
   type: string;
 }

@@ -1,1 +1,140 @@
-<h1>contact new edit</h1>
+<ng-template #headerImageWrapperTemplate>
+  <div class="image-wrapper">
+    <input
+      type="file"
+      (change)="previewHeaderImage($event)"
+      accept="image/x-png,image/gif,image/jpeg"
+      #headerImageInput
+    />
+
+    <img
+      *ngIf="!headerImageLocalPath"
+      id="header-image"
+      class="header-image-placeholder"
+      [ngClass]="{ 'header-image-missing': headerImageMissing }"
+    />
+
+    <img
+      class="upload-delete-header-image"
+      *ngIf="!headerImageLocalPath"
+      (click)="headerImageInput.click()"
+      src="../../../assets/images/icons/upload.svg"
+    />
+
+    <img
+      *ngIf="headerImageLocalPath"
+      id="header-image"
+      [src]="headerImageLocalPath"
+    />
+
+    <img
+      class="upload-delete-header-image"
+      *ngIf="headerImageLocalPath"
+      (click)="headerImageInput.value = ''; headerImageLocalPath = null"
+      src="../../../assets/images/icons/remove.svg"
+    />
+
+    <p *ngIf="">Mandatory</p>
+  </div>
+</ng-template>
+
+<form
+  [formGroup]="contactForm"
+  #f="ngForm"
+  [ngClass]="{ 'invalid-form': invalidForm }"
+>
+  <!-- SM begining -->
+  <div id="sm">
+    <div id="sm-icons-wrapper">
+      <a [routerLink]="['/']">
+        <img src="../../../assets/images/icons/arrow_back.svg" />
+      </a>
+    </div>
+
+    <ng-container *ngTemplateOutlet="headerImageWrapperTemplate"></ng-container>
+  </div>
+  <!-- SM end -->
+
+  <!-- LG begining -->
+  <div id="lg">
+    <ng-container *ngTemplateOutlet="headerImageWrapperTemplate"></ng-container>
+
+    <div id="data-wrapper">
+      <div id="name-icons-wrapper">
+        <a [routerLink]="['/']">
+          <img src="../../../assets/images/icons/arrow_back.svg" />
+        </a>
+      </div>
+
+      <div class="form-input-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/person.svg"/></span>
+          full name
+        </p>
+
+        <input
+          class="single-input"
+          type="text"
+          placeholder="Name"
+          formControlName="name"
+        />
+      </div>
+
+      <div class="form-input-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/email.svg"/></span>
+          email
+        </p>
+
+        <input
+          class="single-input"
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+        />
+      </div>
+
+      <div class="form-input-wrapper">
+        <p>
+          <span> <img src="../../../assets/images/icons/phone.svg"/></span>
+          numbers
+        </p>
+
+        <ng-container formArrayName="phoneArray">
+          <ng-container
+            *ngFor="
+              let phoneControls of contactForm.get('phoneArray').controls;
+              let i = index
+            "
+          >
+            <div [formGroupName]="i" class="number-input-wrapper-box">
+              <input
+                formControlName="number"
+                class="single-input"
+                type="text"
+                placeholder="Number"
+              />
+
+              <div>
+                <input formControlName="type" type="text" placeholder="Type" />
+                <button type="button" (click)="removeNumber(i)">x</button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <div id="add-number">
+        <button type="button" (click)="addNumber()">
+          <img src="../../../assets/images/icons/add.svg" />
+        </button>
+      </div>
+
+      <div id="form-buttons">
+        <button type="button" [routerLink]="['/']">Cancel</button>
+        <button type="button" (click)="submit()">Submit</button>
+      </div>
+    </div>
+  </div>
+  <!-- LG end -->
+</form>

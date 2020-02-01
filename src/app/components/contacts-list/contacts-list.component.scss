@@ -94,10 +94,14 @@
     @include common-contact-style-mixin();
     opacity: 0.5;
     border: 1px dashed $green_2;
-    color: $green_2;
+   
+    a {
+      text-decoration: none;
+      color: $green_2;
+    }
 
     @media (max-width: $sm) {
-      div {
+      a {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         align-content: center;
@@ -116,7 +120,7 @@
       justify-content: center;
       align-content: center;
 
-      div {
+      a {
         display: inherit;
         grid-row-gap: 0.4em;
         img {
@@ -167,6 +171,10 @@
         }
       }
 
+      .edit {
+        justify-self: center;
+      }
+
       @media (min-width: $sm) {
         :nth-child(2) {
           grid-column: 7/8;
@@ -177,7 +185,7 @@
       }
     }
 
-    a {
+    .image-name {
       text-decoration: none;
       display: inherit;
       justify-content: center;
