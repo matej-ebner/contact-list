@@ -38,9 +38,6 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
         (response: Contact) => {
           this.contact = response;
           this.generalService.hideSpinner();
-        },
-        error => {
-          this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(getContactSubscription);
@@ -58,9 +55,6 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any[]) => {
           this.contact.favorite = asFavorite;
-          this.generalService.hideSpinner();
-        },
-        error => {
           this.generalService.hideSpinner();
         }
       );

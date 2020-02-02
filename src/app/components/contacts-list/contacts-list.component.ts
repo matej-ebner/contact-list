@@ -13,7 +13,6 @@ import { Contact } from "src/app/core-module/models/contact.model";
   styleUrls: ["./contacts-list.component.scss"]
 })
 export class ContactsListComponent implements OnInit {
-  subscriptions: Subscription[] = [];
   isDataAvailable: boolean;
 
   allContacts: boolean;
@@ -21,6 +20,8 @@ export class ContactsListComponent implements OnInit {
 
   deleteContactId: number;
 
+  subscriptions: Subscription[] = [];
+  
   constructor(
     private generalService: GeneralService,
     private appApiService: AppApiService,
@@ -35,19 +36,14 @@ export class ContactsListComponent implements OnInit {
     this.generalService.showSpinner();
     const getContactsSubscription = this.appApiService
       .getContactsRequest()
-      .subscribe(
-        (response: Contact[]) => {
-          this.allContacts = true;
-          this.appDataService.setContacts(response);
+      .subscribe((response: Contact[]) => {
+        this.allContacts = true;
+        this.appDataService.setContacts(response);
 
-          this.contacts = this.appDataService.allContacts;
-          this.isDataAvailable = true;
-          this.generalService.hideSpinner();
-        },
-        error => {
-          this.generalService.hideSpinner();
-        }
-      );
+        this.contacts = this.appDataService.allContacts;
+        this.isDataAvailable = true;
+        this.generalService.hideSpinner();
+      });
     this.subscriptions.push(getContactsSubscription);
   }
 
@@ -67,21 +63,16 @@ export class ContactsListComponent implements OnInit {
     this.generalService.showSpinner();
     const setAsFavoriteSubscription = this.appApiService
       .setAsFavoriteRequest(formData)
-      .subscribe(
-        (response: any[]) => {
-          this.appDataService.setContacts(response);
+      .subscribe((response: any[]) => {
+        this.appDataService.setContacts(response);
 
-          this.contacts = this.allContacts
-            ? this.appDataService.allContacts
-            : this.appDataService.favoriteContacts;
+        this.contacts = this.allContacts
+          ? this.appDataService.allContacts
+          : this.appDataService.favoriteContacts;
 
-          this.isDataAvailable = true;
-          this.generalService.hideSpinner();
-        },
-        error => {
-          this.generalService.hideSpinner();
-        }
-      );
+        this.isDataAvailable = true;
+        this.generalService.hideSpinner();
+      });
     this.subscriptions.push(setAsFavoriteSubscription);
   }
 
@@ -89,20 +80,15 @@ export class ContactsListComponent implements OnInit {
     this.generalService.showSpinner();
     const setAsFavoriteSubscription = this.appApiService
       .deleteContact(this.deleteContactId)
-      .subscribe(
-        (response: Contact[]) => {
-          this.appDataService.setContacts(response);
-          this.contacts = this.allContacts
-            ? this.appDataService.allContacts
-            : this.appDataService.favoriteContacts;
+      .subscribe((response: Contact[]) => {
+        this.appDataService.setContacts(response);
+        this.contacts = this.allContacts
+          ? this.appDataService.allContacts
+          : this.appDataService.favoriteContacts;
 
-          this.deleteContactId = undefined;
-          this.generalService.hideSpinner();
-        },
-        error => {
-          this.generalService.hideSpinner();
-        }
-      );
+        this.deleteContactId = undefined;
+        this.generalService.hideSpinner();
+      });
     this.subscriptions.push(setAsFavoriteSubscription);
   }
 

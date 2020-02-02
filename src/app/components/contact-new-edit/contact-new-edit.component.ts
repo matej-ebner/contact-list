@@ -56,9 +56,6 @@ export class ContactNewEditComponent implements OnInit {
           this.contact = response;
           this.initForm();
           this.generalService.hideSpinner();
-        },
-        error => {
-          this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(getContactSubscription);
@@ -168,9 +165,6 @@ export class ContactNewEditComponent implements OnInit {
       .subscribe(
         (response: Contact) => {
           this.redirectAfterSubmit();
-        },
-        error => {
-          this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(getContactSubscription);
@@ -183,9 +177,6 @@ export class ContactNewEditComponent implements OnInit {
       .subscribe(
         (response: Contact) => {
           this.redirectAfterSubmit();
-        },
-        error => {
-          this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(getContactSubscription);
@@ -199,9 +190,6 @@ export class ContactNewEditComponent implements OnInit {
         (response: Contact[]) => {
           this.showDeleteContactModal = false;
           this.redirectAfterSubmit();
-        },
-        error => {
-          this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(setAsFavoriteSubscription);
