@@ -79,7 +79,7 @@ export class ContactsListComponent implements OnInit {
   deleteContact(): void {
     this.generalService.showSpinner();
     const setAsFavoriteSubscription = this.appApiService
-      .deleteContact(this.deleteContactId)
+      .deleteContactRequest(this.deleteContactId)
       .subscribe((response: Contact[]) => {
         this.appDataService.setContacts(response);
         this.contacts = this.allContacts

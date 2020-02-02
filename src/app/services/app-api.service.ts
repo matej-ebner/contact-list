@@ -21,11 +21,11 @@ export class AppApiService {
   }
 
   getContactRequest(contactId: number): Observable<any> {
-    const url = this.baseApiUrl + "contact-detail/?id=" + contactId;
+    const url = this.baseApiUrl + "contact-detail?id=" + contactId;
     return this.httpClient.get(url);
   }
 
-  deleteContact(contactId: number): Observable<any> {
+  deleteContactRequest(contactId: number): Observable<any> {
     const url = this.baseApiUrl + "delete-contact/?id=" + contactId;
     return this.httpClient.delete(url);
   }

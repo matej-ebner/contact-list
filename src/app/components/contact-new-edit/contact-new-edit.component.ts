@@ -175,7 +175,7 @@ export class ContactNewEditComponent implements OnInit {
     const getContactSubscription = this.appApiService
       .newContactRequest(formData)
       .subscribe(
-        (response: Contact) => {
+        (response: any) => {
           this.redirectAfterSubmit();
         }
       );
@@ -185,7 +185,7 @@ export class ContactNewEditComponent implements OnInit {
   deleteContact(): void {
     this.generalService.showSpinner();
     const setAsFavoriteSubscription = this.appApiService
-      .deleteContact(this.contact.id)
+      .deleteContactRequest(this.contact.id)
       .subscribe(
         (response: Contact[]) => {
           this.showDeleteContactModal = false;
