@@ -4,12 +4,15 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
+  HttpErrorResponse
 } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import * as defaultContacts from "../../core-module/default-contacts.json";
 import { Contact } from "../models/contact.model.js";
+import { catchError } from "rxjs/operators";
+import { Router } from '@angular/router';
 
 const requestsUrls = [
   {
@@ -49,7 +52,8 @@ const requestsUrls = [
 
 @Injectable()
 export class HttpMockRequestInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector,
+    private router:Router) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -57,26 +61,55 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const url = requestsUrls.find(url => request.url.includes(url.url));
 
+    let response: any;
+
     for (const requestUrl of requestsUrls) {
       if (request.url.includes(requestUrl.url)) {
         switch (url.action) {
           case "newContact":
-            return this.newContact(request);
+            response = this.newContact(request);
+            break;
           case "editContact":
-            return this.editContact(request);
+            response = this.editContact(request);
+            break;
           case "deleteContact":
-            return this.deleteContact(request);
+            response = this.deleteContact(request);
+            break;
           case "getContacts":
-            return this.getContacts();
+            response = this.getContacts();
+            break;
           case "getContact":
-            return this.getContact(request);
+            response = this.getContact(request);
+            break;
           case "setAsFavorite":
-            return this.setAsFavorite(request);
+            response = this.setAsFavorite(request);
+            break;
           default:
-            return of(new HttpResponse({ status: 500, body: "Server error" }));
+            response = false;
+            break;
         }
-      }
+        if (response instanceof Object) {
+          if (response.status === 404) {
+            this.router.navigate(['/not-found']);
+          } else {
+            return of(new HttpResponse({ status: 200, body: response.body }));
+          }
+        } else {
+          return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+              return throwError(error);
+            })
+          );
+        }
+      } 
+     
     }
+
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
   }
 
   private newContact(request: HttpRequest<any>) {
@@ -101,7 +134,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     newContact.id = maxId + 1;
     contactsFromLocalStorage.push(newContact);
     localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
-    return of(new HttpResponse({ status: 200 }));
+    return this.assembleResponseData(200);
   }
 
   private editContact(request: HttpRequest<any>) {
@@ -117,7 +150,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     contactsFromLocalStorage[indexOfContact] = updateContact;
 
     localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
-    return of(new HttpResponse({ status: 200 }));
+    return this.assembleResponseData(200);
   }
 
   private deleteContact(request: HttpRequest<any>) {
@@ -131,9 +164,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     contactsFromLocalStorage.splice(indexOfContact, 1);
 
     localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
-    return of(
-      new HttpResponse({ status: 200, body: contactsFromLocalStorage })
-    );
+    return this.assembleResponseData(200, contactsFromLocalStorage);
   }
 
   private getContacts(contactsArray?: Contact[]) {
@@ -150,7 +181,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
       contacts = contactsArray;
     }
 
-    return of(new HttpResponse({ status: 200, body: contacts }));
+    return this.assembleResponseData(200, contacts);
   }
 
   private getContact(request: HttpRequest<any>) {
@@ -162,9 +193,9 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     );
 
     if (contact) {
-      return of(new HttpResponse({ status: 200, body: contact }));
+      return this.assembleResponseData(200, contact);
     } else {
-      return of(new HttpResponse({ status: 404, body: "Contact not found" }));
+      return this.assembleResponseData(404);
     }
   }
 
@@ -183,12 +214,15 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     contactsFromLocalStorage[indexOfContact] = updateContact;
 
     localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
-    return of(
-      new HttpResponse({ status: 200, body: contactsFromLocalStorage })
-    );
+
+    if (updateContact) {
+      return this.assembleResponseData(200, contactsFromLocalStorage);
+    } else {
+      return this.assembleResponseData(404);
+    }
   }
 
-  // helper functions
+  //////////////// helper functions ///////////////
   private getContactsFromLocalStorage() {
     return JSON.parse(localStorage.getItem("contacts"));
   }
@@ -215,5 +249,12 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     });
 
     return contact;
+  }
+
+  private assembleResponseData(status: number, body?: Array<any>) {
+    return {
+      status: status,
+      body: body
+    };
   }
 }

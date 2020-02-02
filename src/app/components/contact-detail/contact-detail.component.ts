@@ -14,8 +14,6 @@ import { Contact } from "src/app/core-module/models/contact.model";
   styleUrls: ["./contact-detail.component.scss"]
 })
 export class ContactDetailComponent implements OnInit, OnDestroy {
-  isDataAvailable: boolean;
-  contactNotFound: boolean;
   contact: Contact;
 
   subscriptions: Subscription[] = [];
@@ -39,21 +37,34 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: Contact) => {
           this.contact = response;
-          this.isDataAvailable = true;
           this.generalService.hideSpinner();
         },
         error => {
-          if (error.status === 404) {
-            this.contactNotFound = true;
-            setTimeout(() => {
-              this.router.navigate(["/"]);
-            }, 1000);
-          }
-
           this.generalService.hideSpinner();
         }
       );
     this.subscriptions.push(getContactSubscription);
+  }
+
+  markAsFavorite(asFavorite: boolean): void {
+    const formData = {
+      id: this.contact.id,
+      setAsFavorite: asFavorite
+    };
+
+    this.generalService.showSpinner();
+    const setAsFavoriteSubscription = this.appApiService
+      .setAsFavoriteRequest(formData)
+      .subscribe(
+        (response: any[]) => {
+          this.contact.favorite = asFavorite;
+          this.generalService.hideSpinner();
+        },
+        error => {
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(setAsFavoriteSubscription);
   }
 
   ngOnDestroy(): void {

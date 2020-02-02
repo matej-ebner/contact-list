@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="contact">
   <!-- SM begining -->
   <div id="sm">
     <div id="sm-icons-wrapper">
@@ -10,12 +10,14 @@
         class="heart"
         *ngIf="!contact.favorite"
         src="../../../assets/images/icons/heart_empty.svg"
+        (click)="markAsFavorite(true)"
       />
 
       <img
         class="heart"
         *ngIf="contact.favorite"
         src="../../../assets/images/icons/heart_full.svg"
+        (click)="markAsFavorite(false)"
       />
 
       <a [routerLink]="['/edit/' + contact.id]">
@@ -81,12 +83,14 @@
           class="heart"
           *ngIf="!contact.favorite"
           src="../../../assets/images/icons/heart_empty.svg"
+          (click)="markAsFavorite(true)"
         />
 
         <img
           class="heart"
           *ngIf="contact.favorite"
           src="../../../assets/images/icons/heart_full.svg"
+          (click)="markAsFavorite(false)"
         />
 
         <a class="edit" [routerLink]="['/edit/' + contact.id]">

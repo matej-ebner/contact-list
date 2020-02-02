@@ -5,6 +5,7 @@ import { AppComponent } from "./app.component";
 import { ContactsListComponent } from "./components/contacts-list/contacts-list.component";
 import { ContactNewEditComponent } from "./components/contact-new-edit/contact-new-edit.component";
 import { ContactDetailComponent } from "./components/contact-detail/contact-detail.component";
+import { ContactNotFoundComponent } from './components/contact-not-found/contact-not-found.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: "", component: ContactsListComponent },
       { path: "new", component: ContactNewEditComponent },
       { path: "edit/:id", component: ContactNewEditComponent },
-      { path: "detail/:id", component: ContactDetailComponent }
+      { path: "detail/:id", component: ContactDetailComponent },
+      { path: "not-found", component: ContactNotFoundComponent }
     ]
   },
   { path: "**", redirectTo: "/", pathMatch: "full" }
@@ -29,6 +31,7 @@ export class AppRoutingModule {
     ContactsListComponent,
     ContactNewEditComponent,
     ContactNewEditComponent,
-    ContactDetailComponent
+    ContactDetailComponent,
+    ContactNotFoundComponent
   ];
 }

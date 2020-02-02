@@ -1,0 +1,9 @@
+@import "../../../../src/scss/variables.scss";
+
+p {
+  margin: 2em;
+  font-size: 2em;
+  text-align: center;
+  color: $grey_3;
+  font-weight: 700;
+}

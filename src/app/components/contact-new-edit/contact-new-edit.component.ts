@@ -18,7 +18,6 @@ import { Subscription } from "rxjs";
 })
 export class ContactNewEditComponent implements OnInit {
   contact: Contact;
-  contactNotFound: boolean;
   contactForm: FormGroup;
   invalidForm: boolean;
   headerImageMissing: boolean;
@@ -59,13 +58,6 @@ export class ContactNewEditComponent implements OnInit {
           this.generalService.hideSpinner();
         },
         error => {
-          if (error.status === 404) {
-            this.contactNotFound = true;
-            setTimeout(() => {
-              this.router.navigate(["/"]);
-            }, 1000);
-          }
-
           this.generalService.hideSpinner();
         }
       );
@@ -178,12 +170,6 @@ export class ContactNewEditComponent implements OnInit {
           this.redirectAfterSubmit();
         },
         error => {
-          if (error.status === 404) {
-            this.contactNotFound = true;
-            setTimeout(() => {
-              this.router.navigate(["/"]);
-            }, 1000);
-          }
           this.generalService.hideSpinner();
         }
       );
@@ -199,12 +185,6 @@ export class ContactNewEditComponent implements OnInit {
           this.redirectAfterSubmit();
         },
         error => {
-          if (error.status === 404) {
-            this.contactNotFound = true;
-            setTimeout(() => {
-              this.router.navigate(["/"]);
-            }, 1000);
-          }
           this.generalService.hideSpinner();
         }
       );

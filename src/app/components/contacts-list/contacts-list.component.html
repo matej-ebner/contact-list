@@ -27,6 +27,8 @@
     <input type="text" />
   </div>
 
+  <p *ngIf="contacts.length === 0" id="no-contacts">No contacts</p>
+
   <div id="contacts-wrapper">
     <div *ngIf="allContacts" id="add-contact">
       <a [routerLink]="['new']">

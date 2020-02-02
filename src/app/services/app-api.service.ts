@@ -20,6 +20,11 @@ export class AppApiService {
     return this.httpClient.patch(url, JSON.stringify(formData));
   }
 
+  getContactRequest(contactId: number): Observable<any> {
+    const url = this.baseApiUrl + "contact-detail/?id=" + contactId;
+    return this.httpClient.get(url);
+  }
+
   deleteContact(contactId: number): Observable<any> {
     const url = this.baseApiUrl + "delete-contact/?id=" + contactId;
     return this.httpClient.delete(url);
@@ -27,11 +32,6 @@ export class AppApiService {
 
   getContactsRequest(): Observable<any> {
     const url = this.baseApiUrl + "contacts";
-    return this.httpClient.get(url);
-  }
-
-  getContactRequest(contactId: number): Observable<any> {
-    const url = this.baseApiUrl + "contact-detail/?id=" + contactId;
     return this.httpClient.get(url);
   }
 

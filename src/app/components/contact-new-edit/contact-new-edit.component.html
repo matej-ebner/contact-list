@@ -20,14 +20,14 @@
 >
 </app-modal>
 
-<form
+<form *ngIf="contactForm"
   [formGroup]="contactForm"
   #f="ngForm"
   [ngClass]="{ 'invalid-form': invalidForm }"
 >
   <div id="big-wrapper">
     <div id="sm-icons-wrapper">
-      <a [routerLink]="['/']">
+      <a (click)="checkFormInputs()">
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
 
@@ -72,7 +72,7 @@
 
     <div id="data-wrapper">
       <div id="name-icons-wrapper">
-        <a [routerLink]="['/']">
+        <a (click)="checkFormInputs()">
           <img src="../../../assets/images/icons/arrow_back.svg" />
         </a>
         <img class="delete-contact" *ngIf="contact" (click)="showDeleteContactModal = true" src="../../../assets/images/icons/delete.svg" />

@@ -81,6 +81,13 @@
   }
 }
 
+#no-contacts{
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: $grey_3;
+}
+
 #contacts-wrapper {
   margin: 0px auto;
   @media (min-width: $sm) {

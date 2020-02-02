@@ -36,7 +36,7 @@ export class ContactsListComponent implements OnInit {
     const getContactsSubscription = this.appApiService
       .getContactsRequest()
       .subscribe(
-        (response: any[]) => {
+        (response: Contact[]) => {
           this.allContacts = true;
           this.appDataService.setContacts(response);
 
