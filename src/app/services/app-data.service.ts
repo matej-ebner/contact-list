@@ -10,8 +10,6 @@ export class AppDataService {
 
   setContacts(contactsArray: Contact[]): void {
     this.allContacts = this.sortContactsAlphabetically(contactsArray);
-    localStorage.setItem("contacts", JSON.stringify(this.allContacts));
-
     const favoriteContacts = contactsArray.filter(contact => {
       return contact.favorite === true;
     });

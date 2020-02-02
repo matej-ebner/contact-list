@@ -3,7 +3,6 @@ import { Subscription } from "rxjs";
 
 import { GeneralService } from "src/app/core-module/services/general.service";
 import { AppApiService } from "src/app/services/app-api.service";
-import { ErrorService } from "src/app/core-module/services/error.service";
 import { AppDataService } from "src/app/services/app-data.service";
 
 import { Contact } from "src/app/core-module/models/contact.model";
@@ -19,6 +18,8 @@ export class ContactsListComponent implements OnInit {
 
   allContacts: boolean;
   contacts: Contact[];
+
+  deleteContactId: number;
 
   constructor(
     private generalService: GeneralService,
@@ -44,7 +45,6 @@ export class ContactsListComponent implements OnInit {
           this.generalService.hideSpinner();
         },
         error => {
-
           this.generalService.hideSpinner();
         }
       );
@@ -76,6 +76,27 @@ export class ContactsListComponent implements OnInit {
             : this.appDataService.favoriteContacts;
 
           this.isDataAvailable = true;
+          this.generalService.hideSpinner();
+        },
+        error => {
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(setAsFavoriteSubscription);
+  }
+
+  deleteContact(): void {
+    this.generalService.showSpinner();
+    const setAsFavoriteSubscription = this.appApiService
+      .deleteContact(this.deleteContactId)
+      .subscribe(
+        (response: Contact[]) => {
+          this.appDataService.setContacts(response);
+          this.contacts = this.allContacts
+            ? this.appDataService.allContacts
+            : this.appDataService.favoriteContacts;
+
+          this.deleteContactId = undefined;
           this.generalService.hideSpinner();
         },
         error => {

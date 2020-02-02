@@ -26,6 +26,10 @@ export class ContactNewEditComponent implements OnInit {
   @ViewChild("headerImageInput", { static: true }) headerImageInput;
   headerImageLocalPath: string;
 
+  showDeleteContactModal: boolean;
+  formValuesChanged: boolean;
+  showLeaveWithoutSavingModal: boolean;
+
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -70,8 +74,7 @@ export class ContactNewEditComponent implements OnInit {
 
   private initForm(): void {
     let name: string;
-    // let email: string;
-    let email = 'm@m.com';
+    let email: string;
 
     if (this.contact) {
       this.headerImageLocalPath = this.contact.headerImage;
@@ -105,6 +108,10 @@ export class ContactNewEditComponent implements OnInit {
     } else {
       this.addNumber();
     }
+
+    this.contactForm.valueChanges.subscribe(
+      () => (this.formValuesChanged = true)
+    );
   }
 
   previewHeaderImage(event: any): void {
@@ -149,6 +156,7 @@ export class ContactNewEditComponent implements OnInit {
       const formData = this.contactForm.value;
       if (this.contact) {
         formData["id"] = this.contact.id;
+        formData["headerImage"] = this.contact.headerImage;
         this.editContact(formData);
       } else {
         // adding some default images since there is no API to store image
@@ -188,7 +196,7 @@ export class ContactNewEditComponent implements OnInit {
       .newContactRequest(formData)
       .subscribe(
         (response: Contact) => {
-          this.redirectAfterSubmit();  
+          this.redirectAfterSubmit();
         },
         error => {
           if (error.status === 404) {
@@ -203,7 +211,36 @@ export class ContactNewEditComponent implements OnInit {
     this.subscriptions.push(getContactSubscription);
   }
 
-  private redirectAfterSubmit() {
+  deleteContact(): void {
+    this.generalService.showSpinner();
+    const setAsFavoriteSubscription = this.appApiService
+      .deleteContact(this.contact.id)
+      .subscribe(
+        (response: Contact[]) => {
+          this.showDeleteContactModal = false;
+          this.redirectAfterSubmit();
+        },
+        error => {
+          this.generalService.hideSpinner();
+        }
+      );
+    this.subscriptions.push(setAsFavoriteSubscription);
+  }
+
+  checkFormInputs(): void {
+    if (this.formValuesChanged) {
+      this.showLeaveWithoutSavingModal = true;
+    } else {
+      this.showLeaveWithoutSavingModal = false;
+      this.leaveWithoutSaving();
+    }
+  }
+
+  leaveWithoutSaving(): void {
+    this.router.navigate(["/"]);
+  }
+
+  private redirectAfterSubmit(): void {
     this.generalService.hideSpinner();
     this.router.navigate(["/"]);
   }

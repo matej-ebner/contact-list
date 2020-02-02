@@ -1,3 +1,25 @@
+<app-modal
+  *ngIf="showDeleteContactModal"
+  [bodyText]="'Are you sure you want to delete this contact?'"
+  [title]="'Delete'"
+  [cancelButtonText]="'No'"
+  [acceptButtonText]="'Yes'"
+  (acceptModalAction)="deleteContact($event)"
+  (declineModalAction)="showDeleteContactModal = false"
+>
+</app-modal>
+
+<app-modal
+  *ngIf="showLeaveWithoutSavingModal"
+  [bodyText]="'Are you sure you want to leave without saving?'"
+  [title]="'Leave'"
+  [cancelButtonText]="'No'"
+  [acceptButtonText]="'Yes'"
+  (acceptModalAction)="leaveWithoutSaving()"
+  (declineModalAction)="showLeaveWithoutSavingModal = false"
+>
+</app-modal>
+
 <form
   [formGroup]="contactForm"
   #f="ngForm"
@@ -9,7 +31,7 @@
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
 
-      <img class="delete-contact" *ngIf="contact" src="../../../assets/images/icons/delete.svg" />
+      <img class="delete-contact" *ngIf="contact" (click)="showDeleteContactModal = true" src="../../../assets/images/icons/delete.svg" />
     </div>
 
     <div class="image-wrapper">
@@ -53,7 +75,7 @@
         <a [routerLink]="['/']">
           <img src="../../../assets/images/icons/arrow_back.svg" />
         </a>
-        <img class="delete-contact" *ngIf="contact" src="../../../assets/images/icons/delete.svg" />
+        <img class="delete-contact" *ngIf="contact" (click)="showDeleteContactModal = true" src="../../../assets/images/icons/delete.svg" />
       </div>
 
       <div class="form-input-wrapper">
@@ -120,8 +142,8 @@
         </button>
       </div>
 
-      <div id="form-buttons">
-        <button type="button" [routerLink]="['/']">Cancel</button>
+      <div class="positive-negative-buttons">
+        <button type="button" (click)="checkFormInputs()">Cancel</button>
         <button type="button" (click)="submit()">Submit</button>
       </div>
     </div>

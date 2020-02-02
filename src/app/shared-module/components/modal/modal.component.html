@@ -1,0 +1,22 @@
+<div class="overlay" (keydown.esc)="decline()">
+  <div class="dialog">
+    <div class="content">
+      <div class="header">
+        <p *ngIf="title" class="title">{{ title }}</p>
+      </div>
+      <div *ngIf="bodyText" class="body">
+        {{ bodyText }}
+      </div>
+      <div class="footer">
+        <div class="positive-negative-buttons">
+          <button type="button" (click)="decline()">
+            {{ cancelButtonText }}
+          </button>
+          <button type="button" (click)="accept()">
+            {{ acceptButtonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

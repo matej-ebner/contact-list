@@ -20,6 +20,11 @@ export class AppApiService {
     return this.httpClient.patch(url, JSON.stringify(formData));
   }
 
+  deleteContact(contactId: number): Observable<any> {
+    const url = this.baseApiUrl + "delete-contact/?id=" + contactId;
+    return this.httpClient.delete(url);
+  }
+
   getContactsRequest(): Observable<any> {
     const url = this.baseApiUrl + "contacts";
     return this.httpClient.get(url);

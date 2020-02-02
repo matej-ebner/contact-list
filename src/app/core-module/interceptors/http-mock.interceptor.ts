@@ -21,6 +21,10 @@ const requestsUrls = [
     action: "editContact"
   },
   {
+    url: environment.apiUrl + "delete-contact",
+    action: "deleteContact"
+  },
+  {
     url: environment.apiUrl + "contacts",
     action: "getContacts"
   },
@@ -60,6 +64,8 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
             return this.newContact(request);
           case "editContact":
             return this.editContact(request);
+          case "deleteContact":
+            return this.deleteContact(request);
           case "getContacts":
             return this.getContacts();
           case "getContact":
@@ -114,13 +120,32 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     return of(new HttpResponse({ status: 200 }));
   }
 
+  private deleteContact(request: HttpRequest<any>) {
+    const contactIdParam = Number(request.urlWithParams.split("=")[1]);
+    const contactsFromLocalStorage = this.getContactsFromLocalStorage();
+    let deleteContact = contactsFromLocalStorage.find(
+      contact => contact.id == contactIdParam
+    );
+
+    const indexOfContact = contactsFromLocalStorage.indexOf(deleteContact);
+    contactsFromLocalStorage.splice(indexOfContact, 1);
+
+    localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
+    return of(
+      new HttpResponse({ status: 200, body: contactsFromLocalStorage })
+    );
+  }
+
   private getContacts(contactsArray?: Contact[]) {
     let contacts: Contact[] = [];
     if (!contactsArray) {
       const contactsFromLocalStorage = this.getContactsFromLocalStorage();
-      contacts = contactsFromLocalStorage
-        ? contactsFromLocalStorage
-        : defaultContacts["default"];
+      if (!contactsFromLocalStorage) {
+        contacts = defaultContacts["default"];
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+      } else {
+        contacts = contactsFromLocalStorage;
+      }
     } else {
       contacts = contactsArray;
     }
@@ -157,7 +182,10 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     updateContact.favorite = setAsFavoriteParam;
     contactsFromLocalStorage[indexOfContact] = updateContact;
 
-    return this.getContacts(contactsFromLocalStorage);
+    localStorage.setItem("contacts", JSON.stringify(contactsFromLocalStorage));
+    return of(
+      new HttpResponse({ status: 200, body: contactsFromLocalStorage })
+    );
   }
 
   // helper functions

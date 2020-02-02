@@ -1,3 +1,14 @@
+<app-modal
+  *ngIf="deleteContactId"
+  [bodyText]="'Are you sure you want to delete this contact?'"
+  [title]="'Delete'"
+  [cancelButtonText]="'No'"
+  [acceptButtonText]="'Yes'"
+  (acceptModalAction)="deleteContact($event)"
+  (declineModalAction)="deleteContactId = undefined"
+>
+</app-modal>
+
 <ng-container *ngIf="isDataAvailable">
   <div id="contact-type-wrapper">
     <p [ngClass]="{ selected: allContacts }" (click)="switchContactType(true)">
@@ -39,7 +50,10 @@
         <a class="edit" [routerLink]="['edit/' + contact.id]">
           <img src="../../../assets/images/icons/edit.svg" />
         </a>
-        <img src="../../../assets/images/icons/delete.svg" />
+        <img
+          src="../../../assets/images/icons/delete.svg"
+          (click)="deleteContactId = contact.id"
+        />
       </div>
 
       <a class="image-name" [routerLink]="['detail/' + contact.id]">

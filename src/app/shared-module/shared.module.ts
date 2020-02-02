@@ -4,11 +4,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { FilterByNamePipe } from './pipes/filter-by-name.pipe';
 
+import { ModalComponent } from './components/modal/modal.component';
+
 import { AppConstants } from './app.constants';
 
 @NgModule({
     declarations: [
-        FilterByNamePipe
+        FilterByNamePipe,
+        ModalComponent
     ],
     imports: [
         CommonModule,
@@ -19,7 +22,8 @@ import { AppConstants } from './app.constants';
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
-        FilterByNamePipe
+        FilterByNamePipe,
+        ModalComponent
     ],
     providers: [
         AppConstants

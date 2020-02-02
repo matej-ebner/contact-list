@@ -24,3 +24,38 @@ a {
     outline: 0;
   }
 }
+
+.positive-negative-buttons {
+  margin-top: 2em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  button {
+    border-radius: 28.5px;
+    width: 130px;
+    @media (min-width: $sm) {
+      width: 160px;
+    }
+    height: 42px;
+    border: none;
+    color: $white;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 2px 34px 0 $grey_2;
+    }
+  }
+
+  :nth-child(1) {
+    background-color: $grey_3;
+    justify-self: left;
+  }
+
+  :nth-child(2) {
+    background-color: $green_2;
+    justify-self: right;
+  }
+}

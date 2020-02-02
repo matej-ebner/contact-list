@@ -1,0 +1,50 @@
+@import "../../../../scss/variables.scss";
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background: rgba($black, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dialog {
+    position: relative;
+    background: $white;
+    border-radius: 4px;
+    box-shadow: 0 0 14px 0 rgba(99, 109, 255, 0.27);
+    width: 300px;
+
+    @media (min-width: $sm) {
+      width: 480px;
+    }
+
+    .title {
+      color: $grey_3;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 19px;
+      text-align: left;
+      border-bottom: 1px solid $grey_3;
+      padding: 1em;
+    }
+
+    .body {
+      color: $grey_3;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: center;
+      margin: 2em 0;
+      padding: 0 1em;
+    }
+
+    .footer {
+      padding: 0 1em 2em 1em;
+    }
+  }
+}
