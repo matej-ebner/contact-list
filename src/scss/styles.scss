@@ -29,26 +29,44 @@ a {
   margin-top: 2em;
   display: grid;
 
-  @media (max-width: $sm) {
-    grid-row-gap: 10px;
-    justify-content: center;
+  &.delete-modal {
+    @media (max-width: $sm) {
+      grid-row-gap: 10px;
+      justify-content: center;
 
-    :nth-child(1){
-      grid-row: 0/1;
+      :nth-child(1) {
+        grid-row: 0/1;
+      }
+
+      :nth-child(2) {
+        grid-row: 1/2;
+      }
     }
 
-    :nth-child(2){
-      grid-row: 1/2;
+    @media (min-width: $sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    button {
+      width: 160px;
     }
   }
 
-  @media (min-width: $sm) {
+  &:not(.delete-modal) {
     grid-template-columns: repeat(2, 1fr);
+    button {
+      width: 130px;
+    }
+
+    @media (min-width: $sm) {
+      button {
+        width: 160px;
+      }
+    }
   }
 
   button {
     border-radius: 28.5px;
-    width: 160px;
     height: 42px;
     border: none;
     color: $white;

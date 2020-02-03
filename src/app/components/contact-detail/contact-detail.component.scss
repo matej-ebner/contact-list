@@ -182,6 +182,10 @@ form {
       height: 16px;
       margin-bottom: 2px;
     }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   p {
