@@ -134,11 +134,11 @@ describe("AppDataService", () => {
   ];
 
   it("Alphabetically sorting contacts works", () => {
-    const sortedEntityArray = service.sortContactsAlphabetically(
+    const sortedContactsArray = service.sortContactsAlphabetically(
       unsortedContacts
     );
 
-    expect(sortedEntityArray).toEqual(sortedContacts);
+    expect(sortedContactsArray).toEqual(sortedContacts);
   });
 
   it("Sort and set all/favorite contacts", () => {

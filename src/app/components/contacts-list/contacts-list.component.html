@@ -2,8 +2,8 @@
   *ngIf="deleteContactId"
   [bodyText]="'Are you sure you want to delete this contact?'"
   [title]="'Delete'"
-  [cancelButtonText]="'No'"
-  [acceptButtonText]="'Yes'"
+  [cancelButtonText]="'Cancel'"
+  [acceptButtonText]="'Delete'"
   (acceptModalAction)="deleteContact($event)"
   (declineModalAction)="deleteContactId = undefined"
 >
@@ -24,10 +24,17 @@
   </div>
 
   <div id="search-wrapper">
-    <input type="text" />
+    <input
+      type="text"
+      [(ngModel)]="searchContactsBy"
+      (ngModelChange)="filterContacts(searchContactsBy)"
+    />
   </div>
 
-  <p *ngIf="contacts.length === 0" id="no-contacts">No contacts</p>
+  <p *ngIf="contactsCopy.length === 0" id="no-contacts">
+    <span *ngIf="searchContactsBy">No results for "{{ searchContactsBy }}"</span>
+    <span *ngIf="!searchContactsBy">No contacts</span>
+  </p>
 
   <div id="contacts-wrapper">
     <div *ngIf="allContacts" id="add-contact">
@@ -37,7 +44,7 @@
       </a>
     </div>
 
-    <div class="contact" *ngFor="let contact of contacts">
+    <div class="contact" *ngFor="let contact of contactsCopy">
       <div class="icons-wrapper">
         <img
           *ngIf="!contact.favorite"

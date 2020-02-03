@@ -27,7 +27,12 @@ describe("ContactsListComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it("Should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("Should switch contact type", () => {
+    component.switchContactType(true);
+    expect(component.allContacts).toBeTruthy();
   });
 });

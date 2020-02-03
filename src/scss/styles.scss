@@ -28,14 +28,27 @@ a {
 .positive-negative-buttons {
   margin-top: 2em;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: $sm) {
+    grid-row-gap: 10px;
+    justify-content: center;
+
+    :nth-child(1){
+      grid-row: 0/1;
+    }
+
+    :nth-child(2){
+      grid-row: 1/2;
+    }
+  }
+
+  @media (min-width: $sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   button {
     border-radius: 28.5px;
-    width: 130px;
-    @media (min-width: $sm) {
-      width: 160px;
-    }
+    width: 160px;
     height: 42px;
     border: none;
     color: $white;

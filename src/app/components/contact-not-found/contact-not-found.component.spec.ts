@@ -24,7 +24,7 @@ describe("ContactNotFoundComponent", () => {
     router = TestBed.get(Router);
   });
 
-  it("should create", () => {
+  it("Should create", () => {
     expect(component).toBeTruthy();
   });
 
