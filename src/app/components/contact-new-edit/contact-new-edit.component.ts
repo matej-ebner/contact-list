@@ -51,13 +51,11 @@ export class ContactNewEditComponent implements OnInit {
     this.generalService.showSpinner();
     const getContactSubscription = this.appApiService
       .getContactRequest(contactId)
-      .subscribe(
-        (response: Contact) => {
-          this.contact = response;
-          this.initForm();
-          this.generalService.hideSpinner();
-        }
-      );
+      .subscribe((response: Contact) => {
+        this.contact = response;
+        this.initForm();
+        this.generalService.hideSpinner();
+      });
     this.subscriptions.push(getContactSubscription);
   }
 
@@ -153,6 +151,10 @@ export class ContactNewEditComponent implements OnInit {
         this.saveNewContact(formData);
       }
     } else {
+
+console.log(this.contactForm);
+
+
       this.invalidForm = true;
       this.headerImageMissing = !this.headerImageLocalPath;
     }
@@ -162,11 +164,9 @@ export class ContactNewEditComponent implements OnInit {
     this.generalService.showSpinner();
     const getContactSubscription = this.appApiService
       .editContactRequest(formData)
-      .subscribe(
-        (response: Contact) => {
-          this.redirectAfterSubmit();
-        }
-      );
+      .subscribe((response: Contact) => {
+        this.redirectAfterSubmit();
+      });
     this.subscriptions.push(getContactSubscription);
   }
 
@@ -174,11 +174,9 @@ export class ContactNewEditComponent implements OnInit {
     this.generalService.showSpinner();
     const getContactSubscription = this.appApiService
       .newContactRequest(formData)
-      .subscribe(
-        (response: any) => {
-          this.redirectAfterSubmit();
-        }
-      );
+      .subscribe((response: any) => {
+        this.redirectAfterSubmit();
+      });
     this.subscriptions.push(getContactSubscription);
   }
 
@@ -186,12 +184,10 @@ export class ContactNewEditComponent implements OnInit {
     this.generalService.showSpinner();
     const setAsFavoriteSubscription = this.appApiService
       .deleteContactRequest(this.contact.id)
-      .subscribe(
-        (response: Contact[]) => {
-          this.showDeleteContactModal = false;
-          this.redirectAfterSubmit();
-        }
-      );
+      .subscribe((response: Contact[]) => {
+        this.showDeleteContactModal = false;
+        this.redirectAfterSubmit();
+      });
     this.subscriptions.push(setAsFavoriteSubscription);
   }
 

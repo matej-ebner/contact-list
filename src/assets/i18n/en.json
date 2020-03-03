@@ -1,0 +1,35 @@
+{
+  "app_title": "Contact list",
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm_contact_deletion": "Are you sure you want to delete this contact?"
+  },
+  "error": {
+    "server_error": "Server error"
+  },
+  "contact_list": {
+    "all_contacts": "All contacts",
+    "my_favorites": "My favorites",
+    "no_results_for": "No results for",
+    "no_contacts": "No contacts",
+    "add_new": "Add new"
+  },
+  "contact_not_found": {
+    "not_found": "Contact not found"
+  },
+  "contact_new_edit":{
+    "full_name": "Full name",
+    "name": "Name",
+    "email": "Email",
+    "number": "Number",
+    "numbers": "Numbers",
+    "type": "Type",
+    "add_number": "Add number",
+    "leave": "Leave",
+    "leave_without_saving": "Are you sure you want to leave without saving?"
+  }
+}

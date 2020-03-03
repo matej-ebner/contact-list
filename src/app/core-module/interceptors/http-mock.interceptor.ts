@@ -12,7 +12,7 @@ import { environment } from "src/environments/environment";
 import * as defaultContacts from "../../core-module/default-contacts.json";
 import { Contact } from "../models/contact.model.js";
 import { catchError } from "rxjs/operators";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 const requestsUrls = [
   {
@@ -50,10 +50,12 @@ const requestsUrls = [
   }
 ];
 
+// Since there is no API for this application i created this "in app" API
+// just so that the application can behave like real application
+
 @Injectable()
 export class HttpMockRequestInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector,
-    private router:Router) {}
+  constructor(private injector: Injector, private router: Router) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -90,7 +92,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
         }
         if (response instanceof Object) {
           if (response.status === 404) {
-            this.router.navigate(['/not-found']);
+            this.router.navigate(["/not-found"]);
           } else {
             return of(new HttpResponse({ status: 200, body: response.body }));
           }
@@ -101,8 +103,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
             })
           );
         }
-      } 
-     
+      }
     }
 
     return next.handle(request).pipe(

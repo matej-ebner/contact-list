@@ -57,13 +57,13 @@ form {
 }
 
 ////////// SM /////////
-#sm {
+.sm {
   @media (min-width: $sm) {
     display: none;
   }
 }
 
-#sm-icons-wrapper {
+.sm-icons-wrapper {
   @media (min-width: $sm) {
     display: none;
   }
@@ -88,9 +88,9 @@ form {
   }
 }
 
-#sm-data-wrapper {
+.sm-data-wrapper {
   padding: 1em;
-  #sm-header-image-name {
+  .sm-header-image-name {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     align-items: center;
@@ -116,7 +116,7 @@ form {
   }
 }
 
-#sm-email-numbers-wrapper {
+.sm-email-numbers-wrapper {
   padding: 1em 2em;
 
   :nth-child(1) {
@@ -127,19 +127,19 @@ form {
     margin-bottom: 1em;
   }
 
-  #email {
+  .email {
     margin-left: 20px;
     @include email-mixin();
   }
 
-  #sm-numbers-wrapper {
+  .sm-numbers-wrapper {
     margin-left: 20px;
     @include numbers-wrapper-mixin();
   }
 }
 
 ////////// LG /////////
-#lg {
+.lg {
   @media (max-width: $sm) {
     display: none;
   }
@@ -149,14 +149,14 @@ form {
   align-content: center;
 }
 
-#lg-header-image {
+.lg-header-image {
   @include header-image-mixin();
   grid-column: 1/2;
   width: 180px;
   height: 180px;
 }
 
-#lg-data-wrapper {
+.lg-data-wrapper {
   grid-column: 2/7;
   padding: 0 2em;
   display: inherit;
@@ -164,7 +164,7 @@ form {
   grid-template-rows: 90px auto;
 }
 
-#name-icons-wrapper {
+.name-icons-wrapper {
   @media (max-width: $sm) {
     display: none;
   }
@@ -212,7 +212,7 @@ form {
   }
 }
 
-#lg-email-numbers-wrapper {
+.lg-email-numbers-wrapper {
   margin-top: 2em;
   width: 80%;
   justify-self: center;
@@ -231,13 +231,13 @@ form {
     }
   }
 
-  #email {
+  .email {
     grid-column: 2/5;
     @include email-mixin();
   }
 }
 
-#lg-numbers-wrapper {
+.lg-numbers-wrapper {
   @include numbers-wrapper-mixin();
 }
 

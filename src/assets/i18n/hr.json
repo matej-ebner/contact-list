@@ -1,0 +1,35 @@
+{
+  "app_title": "Kontakt lista",
+  "common": {
+    "yes": "Da",
+    "no": "Ne",
+    "cancel": "Odustani",
+    "save": "Spremi",
+    "delete": "Obriši",
+    "confirm_contact_deletion": "Da li sigurno želite obrisati kontakt?"
+  },
+  "error": {
+    "server_error": "Server error"
+  },
+  "contact_list": {
+    "all_contacts": "Svi kontakti",
+    "my_favorites": "Favoriti",
+    "no_results_for": "Nema rezultata za",
+    "no_contacts": "Nema kontakata",
+    "add_new": "Dodaj"
+  },
+  "contact_not_found": {
+    "not_found": "Kontakt ne postoji"
+  },
+  "contact_new_edit": {
+    "full_name": "Puno ime",
+    "name": "Ime",
+    "email": "Email",
+    "number": "Broj",
+    "numbers": "Brojevi",
+    "type": "Tip",
+    "add_number": "Dodaj broj",
+    "leave": "Napusti",
+    "leave_without_saving": "Da li sigurno želite napustiti bez spremanja podataka?"
+  }
+}

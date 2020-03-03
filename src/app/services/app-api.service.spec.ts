@@ -115,7 +115,7 @@ describe("AppApiService", () => {
     });
 
     const id = 1;
-    const req = httpMock.expectOne(baseApiUrl + "contact-detail?id=" + id);
+    const req = httpMock.expectOne(baseApiUrl + "contact-detail?class=" + id);
     expect(req.request.method).toBe("GET");
     req.flush(dummyContactResponse);
   });

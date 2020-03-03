@@ -1,9 +1,9 @@
 <app-modal
   *ngIf="showDeleteContactModal"
-  [bodyText]="'Are you sure you want to delete this contact?'"
-  [title]="'Delete'"
-  [cancelButtonText]="'Cancel'"
-  [acceptButtonText]="'Delete'"
+  [bodyText]="'common.confirm_contact_deletion' | translate"
+  [title]="'common.delete' | translate"
+  [cancelButtonText]="'common.cancel' | translate"
+  [acceptButtonText]="'common.delete' | translate"
   (acceptModalAction)="deleteContact($event)"
   (declineModalAction)="showDeleteContactModal = false"
 >
@@ -11,27 +11,33 @@
 
 <app-modal
   *ngIf="showLeaveWithoutSavingModal"
-  [bodyText]="'Are you sure you want to leave without saving?'"
-  [title]="'Leave'"
-  [cancelButtonText]="'No'"
-  [acceptButtonText]="'Yes'"
+  [bodyText]="'contact_new_edit.leave_without_saving' | translate"
+  [title]="'contact_new_edit.leave' | translate"
+  [cancelButtonText]="'common.yes' | translate"
+  [acceptButtonText]="'common.no' | translate"
   (acceptModalAction)="leaveWithoutSaving()"
   (declineModalAction)="showLeaveWithoutSavingModal = false"
 >
 </app-modal>
 
-<form *ngIf="contactForm"
+<form
+  *ngIf="contactForm"
   [formGroup]="contactForm"
   #f="ngForm"
   [ngClass]="{ 'invalid-form': invalidForm }"
 >
-  <div id="big-wrapper">
-    <div id="sm-icons-wrapper">
+  <div class="big-wrapper">
+    <div class="sm-icons-wrapper">
       <a (click)="checkFormInputs()">
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
 
-      <img class="delete-contact" *ngIf="contact" (click)="showDeleteContactModal = true" src="../../../assets/images/icons/delete.svg" />
+      <img
+        class="delete-contact"
+        *ngIf="contact"
+        (click)="showDeleteContactModal = true"
+        src="../../../assets/images/icons/delete.svg"
+      />
     </div>
 
     <div class="image-wrapper">
@@ -44,7 +50,6 @@
 
       <img
         *ngIf="!headerImageLocalPath"
-        id="header-image"
         class="header-image-placeholder"
         [ngClass]="{ 'header-image-missing': headerImageMissing }"
       />
@@ -58,7 +63,7 @@
 
       <img
         *ngIf="headerImageLocalPath"
-        id="header-image"
+        class="header-image"
         [src]="headerImageLocalPath"
       />
 
@@ -70,38 +75,43 @@
       />
     </div>
 
-    <div id="data-wrapper">
-      <div id="name-icons-wrapper">
+    <div class="data-wrapper">
+      <div class="name-icons-wrapper">
         <a (click)="checkFormInputs()">
           <img src="../../../assets/images/icons/arrow_back.svg" />
         </a>
-        <img class="delete-contact" *ngIf="contact" (click)="showDeleteContactModal = true" src="../../../assets/images/icons/delete.svg" />
+        <img
+          class="delete-contact"
+          *ngIf="contact"
+          (click)="showDeleteContactModal = true"
+          src="../../../assets/images/icons/delete.svg"
+        />
       </div>
 
       <div class="form-input-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/person.svg"/></span>
-          full name
+          {{ "contact_new_edit.full_name" | translate }}
         </p>
 
         <input
           class="single-input"
           type="text"
-          placeholder="Name"
           formControlName="name"
+          placeholder="{{ 'contact_new_edit.name' | translate }}"
         />
       </div>
 
       <div class="form-input-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/email.svg"/></span>
-          email
+          {{ "contact_new_edit.email" | translate }}
         </p>
 
         <input
           class="single-input"
           type="text"
-          placeholder="Email"
+          placeholder="{{ 'contact_new_edit.email' | translate }}"
           formControlName="email"
         />
       </div>
@@ -109,7 +119,7 @@
       <div class="form-input-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/phone.svg"/></span>
-          numbers
+          {{ "contact_new_edit.numbers" | translate }}
         </p>
 
         <ng-container formArrayName="phoneArray">
@@ -124,11 +134,15 @@
                 formControlName="number"
                 class="single-input"
                 type="text"
-                placeholder="Number"
+                placeholder="{{ 'contact_new_edit.number' | translate }}"
               />
 
               <div>
-                <input formControlName="type" type="text" placeholder="Type" />
+                <input
+                  formControlName="type"
+                  type="text"
+                  placeholder="{{ 'contact_new_edit.type' | translate }}"
+                />
                 <button type="button" (click)="removeNumber(i)">x</button>
               </div>
             </div>
@@ -136,16 +150,20 @@
         </ng-container>
       </div>
 
-      <div id="add-number">
+      <div class="add-number">
         <button type="button" (click)="addNumber()">
           <img src="../../../assets/images/icons/add.svg" />
         </button>
-        <span>Add number</span>
+        <span>{{ "contact_new_edit.add_number" | translate }}</span>
       </div>
 
       <div class="positive-negative-buttons">
-        <button type="button" (click)="checkFormInputs()">Cancel</button>
-        <button type="button" (click)="submit()">Save</button>
+        <button type="button" (click)="checkFormInputs()">
+          {{ "common.cancel" | translate }}
+        </button>
+        <button type="button" (click)="submit()">
+          {{ "common.save" | translate }}
+        </button>
       </div>
     </div>
   </div>

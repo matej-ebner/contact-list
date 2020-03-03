@@ -1,13 +1,26 @@
 <app-spinner></app-spinner>
 <app-error></app-error>
 
-<div id="menu">
+<div class="menu">
   <a [routerLink]="['/']">
-    <img src="assets/images/logo.svg" />
+    {{ "app_title" | translate }}
   </a>
-  <div></div>
+  <div class="menu__language-selection">
+    <button
+      (click)="setLanguage('en')"
+      [ngClass]="{ selected: translateService.currentLang === 'en' }"
+    >
+      EN
+    </button>
+    <button
+      (click)="setLanguage('hr')"
+      [ngClass]="{ selected: translateService.currentLang === 'hr' }"
+    >
+      HR
+    </button>
+  </div>
 </div>
 
-<div id="content">
+<div class="content">
   <router-outlet> </router-outlet>
 </div>

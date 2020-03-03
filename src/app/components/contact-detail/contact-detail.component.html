@@ -1,7 +1,7 @@
 <section *ngIf="contact">
   <!-- SM begining -->
-  <div id="sm">
-    <div id="sm-icons-wrapper">
+  <div class="sm">
+    <div class="sm-icons-wrapper">
       <a [routerLink]="['/']">
         <img src="../../../assets/images/icons/arrow_back.svg" />
       </a>
@@ -25,33 +25,33 @@
       </a>
     </div>
 
-    <div id="sm-data-wrapper">
-      <div id="sm-header-image-name">
-        <img id="header-image" [src]="contact.headerImage" />
+    <div class="sm-data-wrapper">
+      <div class="sm-header-image-name">
+        <img class="header-image" [src]="contact.headerImage" />
 
         <p>
           {{ contact.name }}
         </p>
       </div>
 
-      <div id="sm-email-numbers-wrapper">
+      <div class="sm-email-numbers-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/email.svg"/></span>
-          email
+          {{ "contact_new_edit.email" | translate }}
         </p>
 
-        <a id="email" href="mailto:{{ contact.email }}">
+        <a class="email" href="mailto:{{ contact.email }}">
           {{ contact.email }}
         </a>
       </div>
 
-      <div id="sm-email-numbers-wrapper">
+      <div class="sm-email-numbers-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/phone.svg"/></span>
-          numbers
+          {{ "contact_new_edit.numbers" | translate }}
         </p>
 
-        <div id="sm-numbers-wrapper">
+        <div class="sm-numbers-wrapper">
           <div *ngFor="let phone of contact.phone" class="number-wrapper">
             <p>{{ phone.type }}</p>
 
@@ -66,11 +66,11 @@
   <!-- SM end -->
 
   <!-- LG begining -->
-  <div id="lg">
-    <img id="lg-header-image" [src]="contact.headerImage" />
+  <div class="lg">
+    <img class="lg-header-image" [src]="contact.headerImage" />
 
-    <div id="lg-data-wrapper">
-      <div id="name-icons-wrapper">
+    <div class="lg-data-wrapper">
+      <div class="name-icons-wrapper">
         <a [routerLink]="['/']">
           <img src="../../../assets/images/icons/arrow_back.svg" />
         </a>
@@ -98,24 +98,24 @@
         </a>
       </div>
 
-      <div id="lg-email-numbers-wrapper">
+      <div class="lg-email-numbers-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/email.svg"/></span>
-          email
+          {{ "contact_new_edit.email" | translate }}
         </p>
 
-        <a id="email" href="mailto:{{ contact.email }}">
+        <a class="email" href="mailto:{{ contact.email }}">
           {{ contact.email }}
         </a>
       </div>
 
-      <div id="lg-email-numbers-wrapper">
+      <div class="lg-email-numbers-wrapper">
         <p>
           <span> <img src="../../../assets/images/icons/phone.svg"/></span>
-          numbers
+          {{ "contact_new_edit.numbers" | translate }}
         </p>
 
-        <div id="lg-numbers-wrapper">
+        <div class="lg-numbers-wrapper">
           <div *ngFor="let phone of contact.phone" class="number-wrapper">
             <p>{{ phone.type }}</p>
 

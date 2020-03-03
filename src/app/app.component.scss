@@ -1,6 +1,6 @@
 @import "../../src/scss/variables.scss";
 
-#menu {
+.menu {
   background-image: linear-gradient(
     182.65deg,
     #78c9ce 0%,
@@ -15,19 +15,39 @@
   align-content: center;
   position: relative;
 
-  div {
+  a {
+    text-decoration: none;
+    color: $white;
+    font-weight: 700;
+    font-size: 1.6em;
+  }
+
+  &__language-selection {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-    opacity: 0.3;
-    height: 7px;
-    width: 100%;
+    right: 1em;
+    top: 1em;
+
+    button {
+      border: none;
+      margin: 0 0.2em;
+      padding: 0.4em;
+      background: $grey_1;
+      border-radius: 5px;
+      color: $black;
+
+      &.selected {
+        background: $green_3;
+        color: $white;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
 
-#content {
+.content {
   margin: 0px auto;
   max-width: 1440px;
 

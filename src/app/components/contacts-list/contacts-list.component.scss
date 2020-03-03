@@ -1,6 +1,6 @@
 @import "../../../../src/scss/variables.scss";
 
-#contact-type-wrapper {
+.contact-type-wrapper {
   text-align: center;
   padding: 2em 0;
 
@@ -28,7 +28,7 @@
   }
 }
 
-#search-wrapper {
+.search-wrapper {
   border-top: 1px solid $green_2;
   display: grid;
   justify-content: center;
@@ -81,14 +81,14 @@
   }
 }
 
-#no-contacts{
+.no-contacts{
   text-align: center;
   font-size: 1.5em;
   font-weight: 700;
   color: $grey_3;
 }
 
-#contacts-wrapper {
+.contacts-wrapper {
   margin: 0px auto;
   @media (min-width: $sm) {
     width: 90%;
@@ -97,7 +97,7 @@
     justify-content: center;
   }
 
-  #add-contact {
+  &__add-contact {
     @include common-contact-style-mixin();
     opacity: 0.5;
     border: 1px dashed $green_2;
@@ -137,7 +137,7 @@
     }
   }
 
-  .contact {
+  &__contact {
     @include common-contact-style-mixin();
 
     @media (max-width: $sm) {
@@ -155,7 +155,7 @@
     border: 1px solid $black_opacity_2;
     box-sizing: border-box;
 
-    .icons-wrapper {
+    &__icons-wrapper {
       display: grid;
       padding: 0.5em;
       align-content: center;
@@ -192,7 +192,7 @@
       }
     }
 
-    .image-name {
+    &__image-name {
       text-decoration: none;
       display: inherit;
       justify-content: center;
